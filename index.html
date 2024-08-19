@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <!-- Link Estilos -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- Link Icons -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Link Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="container-form-login">
+        <div class="wrapper">
+            <div class="title-text">
+                <div class="title login">Ingresar</div>
+                <div class="title signup">Registrarse</div>
+            </div>
+            <div class="form-container">
+                <div class="slide-controls">
+                    <input type="radio" name="slide" id="login" checked>
+                    <input type="radio" name="slide" id="signup">
+                    <label for="login" class="slide login">Ingresar</label>
+                    <label for="signup" class="slide signup">Registarse</label>
+                    <div class="slider-tab"></div>
+                </div>
+                <div class="form-inner">
+                    <form id="loginForm" class="login form">
+                        <div class="field">
+                            <input type="email" id="loginEmail" placeholder="Correo" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" id="loginPassword" placeholder="Clave" required>
+                        </div>
+                        <div class="pass-link"><a href="#">Olvidaste tu clave?</a></div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="submit" value="Login">
+                        </div>
+                        <div class="signup-link">Sin usuario? <a href="">Regístrate Ahora</a></div>
+                    </form>
+                    
+                    <form id="signupForm" class="signup">
+                        <div class="field">
+                            <input type="text" id="signupName" placeholder="Nombres" required>
+                        </div>
+                        <div class="field">
+                            <input type="email" id="signupEmail" placeholder="Correo" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" id="signupPassword" placeholder="Clave" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" id="confirmPassword" placeholder="Confirmar Clave" required>
+                        </div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="submit" value="Signup">
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="src/js/login.js"></script>
+
+</body>
+
+</html>

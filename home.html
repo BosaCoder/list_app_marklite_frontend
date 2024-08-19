@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <!-- Link Estilos -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- Link Icons -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Link Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="icons-mobile">
+          <a class="invisible-op" href="" title="home-mobile"> <i class="fa-solid fa-home"></i></a> 
+        </div>
+        <div class="logo">MarkLite</div>
+        <div class="icons-mobile">
+            <a href="index.html" title="exit-mobile"><i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+
+        <nav class="nav-bar">
+            <ul>
+                <li id="add-list"><a class="active" href="index.html">Crear Lista</a></li>
+                <li><a href="index.html">Cerrar Sesión <i class="fa-solid fa-right-from-bracket"></i></a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    
+
+    <div class="content-flex">
+        <div id="card-container" class="card-container">
+            <!-- Las tarjetas se generarán dinámicamente aquí -->
+        </div>
+    </div>
+
+    <footer class="footer-static">
+        <div class="add-button-circle-mobile">
+            <a id="add-list-mobile" href="index.html"><i class='fa fa-plus'></i></a>
+        </div>
+    </footer>
+
+    <script src="src/js/cards-list.js"></script>
+
+</body>
+
+</html>
