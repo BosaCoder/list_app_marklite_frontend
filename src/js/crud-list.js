@@ -55,8 +55,70 @@ document.getElementById('checklist').addEventListener('change', function (e) {
 // Cargar los datos del servidor al cargar el documento
 document.addEventListener('DOMContentLoaded', function () {
     fetchData(); // Cargar datos al iniciar
-    //console.log(itemsJsonArray); // Mostrar el contenido del JSON en consola
+
+    const checklist = document.getElementById('checklist');
+
+    // Inicializar Sortable en el checklist
+    const sortable = new Sortable(checklist, {
+        animation: 150, // Duración de la animación
+        handle: '.grip-icon', // Hacer que el ítem sea arrastrable solo desde el ícono de "grip"
+        ghostClass: 'none', // Clase que se aplica al elemento mientras se arrastra
+        forceFallback: true, // Forzar el uso de la API de arrastrar y soltar
+        onStart: function () {
+            // Añadir clase al body para cambiar el cursor a mano cerrada y desactivar el hover
+            document.body.classList.add('dragging');
+        },
+        onEnd: function (evt) {
+            // Remover clase del body para restaurar el cursor y el hover
+            document.body.classList.remove('dragging');
+
+            // Actualizar el orden del arreglo itemsJsonArray después del arrastre
+            const newArray = [];
+            const checklistItems = document.querySelectorAll('#checklist .li-item');
+
+            checklistItems.forEach(item => {
+                const itemText = item.querySelector('span').textContent;
+                const isCompleted = item.querySelector('input[type="checkbox"]').checked;
+                const isSection = item.classList.contains('section');
+
+                newArray.push({
+                    text: itemText,
+                    completed: isCompleted,
+                    isSection: isSection
+                });
+            });
+
+            // Actualizar el arreglo global con el nuevo orden
+            itemsJsonArray = newArray;
+            saveData(); // Guardar los cambios en el servidor
+        }
+    });
 });
+
+
+// Función para actualizar el orden del arreglo `itemsJsonArray`
+function updateOrder() {
+    const checklistItems = document.querySelectorAll('#checklist .li-item');
+    const newArray = [];
+
+    checklistItems.forEach(item => {
+        const itemText = item.querySelector('span').textContent;
+        const isCompleted = item.querySelector('input[type="checkbox"]').checked;
+        const isSection = item.classList.contains('section');
+
+        newArray.push({
+            text: itemText,
+            completed: isCompleted,
+            isSection: isSection
+        });
+    });
+
+    // Actualizar el arreglo global con el nuevo orden
+    itemsJsonArray = newArray;
+
+    // Guardar los datos en el servidor después de actualizar el orden
+    saveData();
+}
 
 const colorInput = document.getElementById('color-input');
 colorInput.addEventListener('input', function () {
@@ -155,7 +217,7 @@ function addItem(isSection) {
 function finalizeItem(input, newItem) {
     //console.log('En funcion finalizeItem()'); // Log para depuración
     const trimmedInput = input.value.trim();
-    
+
     // Verificar si el ítem ya existe (considerando mayúsculas y minúsculas)
     const itemExists = itemsJsonArray.some(item => item.text === trimmedInput);
     if (itemExists) {
@@ -204,13 +266,13 @@ function finalizeItem(input, newItem) {
 // Función para alternar los estilos de los ítems (tachado y cursiva)
 function toggleItemStyles(itemElement, isChecked) {
     //console.log('En funcion toggleItemStyles()'); // Log para depuración
+    // Seleccionar solo el span que contiene el texto del ítem
+    const textSpan = itemElement.querySelector('span');
+
     if (!itemElement.classList.contains('section')) { // No aplicar a secciones
         if (isChecked) {
-            itemElement.style.textDecoration = 'line-through'; // Tachar
-            itemElement.style.fontStyle = 'italic'; // Cursiva
-        } else {
-            itemElement.style.textDecoration = 'none'; // Sin tachar
-            itemElement.style.fontStyle = 'normal'; // Sin cursiva
+            textSpan.style.textDecoration = 'line-through'; // Tachar
+            textSpan.style.fontStyle = 'italic'; // Cursiva
         }
     }
 }
@@ -328,6 +390,11 @@ function renderItems() {
             li.classList.add('li-item'); // Solo agregar la clase li-item
         }
 
+        // Crear el ícono que aparecerá al hacer hover
+        const gripIcon = document.createElement('i');
+        gripIcon.classList.add('fa-solid', 'fa-grip', 'grip-icon');
+
+        // Crear el texto del item
         const textSpan = document.createElement('span');
         textSpan.textContent = item.text;
         textSpan.contentEditable = true; // Hacer el span editable
@@ -335,7 +402,7 @@ function renderItems() {
             updateItemText(textSpan.textContent, index);
         };
 
-        textSpan.addEventListener('keydown', function(event) {
+        textSpan.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 event.preventDefault(); // Evitar el salto de línea
                 textSpan.blur(); // Salir del modo de edición
@@ -343,6 +410,8 @@ function renderItems() {
             }
         });
 
+        // Agregar el ícono y el checkbox al li
+        li.appendChild(gripIcon);
         li.appendChild(checkbox);
         li.appendChild(textSpan);
         checklist.appendChild(li);

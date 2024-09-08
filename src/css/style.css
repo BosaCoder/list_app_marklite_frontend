@@ -12,6 +12,11 @@ body {
     background-color: #f4f4f4;
 }
 
+.none {
+    display: none;
+    opacity: 0;
+}
+
 .no-seleccion {
     -webkit-user-select: none;
     /* Safari */
@@ -21,6 +26,13 @@ body {
     /* IE10+/Edge */
     user-select: none;
     /* Estándar */
+}
+
+.dragging-placeholder {
+    height: 2px;
+    background-color: #ddd;
+    width: 90%;
+    position: absolute;
 }
 
 .nav-bar * {
@@ -161,7 +173,7 @@ input[type="checkbox"] {
 .container {
     width: 60%;
     background: white;
-    padding: 20px;
+    padding: 20px 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
@@ -230,10 +242,51 @@ input[type="checkbox"] {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    border-radius: 10px;
+}
+
+.container li , .container-down  , .container-head {
+    padding: 0 20px;
+}
+
+.container li i {
+    opacity: 0;
+    color: gray;
+    margin-right: 10px;
+    cursor: grab;
+}
+
+.dragging * , .container li i
+{
+    cursor: grabbing;
+}
+
+.container li:hover i{
+    opacity: 1;
+}
+
+.dragging .container li:hover i{
+    opacity: 0 ;
+}
+
+.sortable-chosen {
+    background-color: #f9f9f9;
 }
 
 .li-item.section input[type="checkbox"] {
     opacity: 0;
+}
+
+.li-item.section i {
+    display: none;
+}
+
+.li-item.section:hover i {
+    position: absolute;
+    display: block;
+    left: 20px;
+    margin-right: 0px;
+    font-size: 16px;
 }
 
 .li-item.section {
@@ -242,6 +295,7 @@ input[type="checkbox"] {
     font-weight: bold;
     font-style: italic;
     color: #949494;
+    position: relative;
 }
 
 .li-item.section span {
@@ -272,14 +326,6 @@ input[type="checkbox"] {
 .li-item.section span::after {
     right: -60px;
     /* Ubicación a la derecha del texto */
-}
-
-.hidden-section {
-    visibility: hidden;
-    font-size: 0;
-    /* Opcional: reducir el espacio que ocupa */
-    display: none !important;
-    /* Ocultar el elemento */
 }
 
 .container span {
