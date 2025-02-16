@@ -47,7 +47,7 @@ function fetchLists() {
         console.error('User ID no está disponible');
         return;
     }
-    fetch(`https://listappmarklite-production.up.railway.app/lists/${userId}`)
+    fetch(`https://list-app-marklite-backend.onrender.com/lists/${userId}`)
         .then(response => response.json())
         .then(data => {
             ////console.log(data);
@@ -134,7 +134,7 @@ function renderLists(lists) {
         //Para cambiar el estado de favorito
         favLink.onclick = (e) => {
             e.preventDefault();
-            fetch(`https://listappmarklite-production.up.railway.app/important/${list.id}`, {
+            fetch(`https://list-app-marklite-backend.onrender.com/important/${list.id}`, {
                 method: 'PUT'
             })
                 .then(response => response.text())
@@ -184,7 +184,7 @@ function renderLists(lists) {
 
         addLink.onclick = (e) => {
             e.preventDefault();
-            fetch(`https://listappmarklite-production.up.railway.app/duplicate/${list.id}`, {
+            fetch(`https://list-app-marklite-backend.onrender.com/duplicate/${list.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -212,7 +212,7 @@ function renderLists(lists) {
 //Funcion para crear una nueva lista
 function createNewList() {
     //console.log('en funcion createNewList');
-    fetch('https://listappmarklite-production.up.railway.app/create', {
+    fetch('https://list-app-marklite-backend.onrender.com/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -231,7 +231,7 @@ function createNewList() {
 function deleteList(id) {
     //console.log('en funcion deleteList');
     if (confirm('¿Estás seguro de que deseas eliminar esta lista?')) {
-        fetch(`https://listappmarklite-production.up.railway.app/delete/${id}`, {
+        fetch(`https://list-app-marklite-backend.onrender.com/delete/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

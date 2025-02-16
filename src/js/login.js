@@ -21,7 +21,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
 
-    const response = await fetch('https://listappmarklite-production.up.railway.app/login', {
+    const response = await fetch('https://list-app-marklite-backend.onrender.com/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ document.getElementById("signupForm").addEventListener("submit", async function 
         return;
     }
 
-    const response = await fetch('https://listappmarklite-production.up.railway.app/register', {
+    const response = await fetch('https://list-app-marklite-backend.onrender.com/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
